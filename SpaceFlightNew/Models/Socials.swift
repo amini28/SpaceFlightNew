@@ -5,7 +5,7 @@
 //  Created by Amini on 29/04/25.
 //
 
-struct Socials: Codable {
+struct Socials: Codable, Hashable {
     let x: String?
     let youtube: String?
     let instagram: String?

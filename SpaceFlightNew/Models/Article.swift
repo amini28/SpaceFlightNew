@@ -6,19 +6,26 @@
 //
 import Foundation
 
-struct Article: Codable {
-    let id: Int
-    let title: String
-    let authors: [Author]
-    let url: String
-    let imageURL: URL
-    let newsSite: String
-    let summary: String
-    let publishedAt: Date
-    let updatedAt: Date
-    let featured: Bool
-    let launches: [String]
-    let events: [String]
+struct ArticleResponse: Codable {
+    let count: Int?
+    let next: String?
+    let previous: String?
+    let results: [Article]?
+}
+
+struct Article: Codable, Hashable, ThumbData {
+    let id: Int?
+    let title: String?
+    let authors: [Author]?
+    let url: String?
+    let imageURL: URL?
+    let newsSite: String?
+    let summary: String?
+    let publishedAt: String?
+    let updatedAt: String?
+    let featured: Bool?
+    let launches: [String]?
+    let events: [String]?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -34,4 +41,10 @@ struct Article: Codable {
         case launches
         case events
     }
+}
+
+protocol ThumbData {
+    var title: String? { get }
+    var imageURL: URL? { get }
+    var publishedAt: String? { get }
 }

@@ -78,7 +78,7 @@ extension APIService: URLSessionDelegate {
         guard let serverCertificates = SecTrustCopyCertificateChain(serverTrust) as? [SecCertificate],
               !serverCertificates.isEmpty else {
             #if DEBUG
-            print("❌ SSL Pinning failed: No certificates found for host \(host)")
+            print("SSL Pinning failed: No certificates found for host \(host)")
             #endif
             return false
         }
@@ -89,7 +89,7 @@ extension APIService: URLSessionDelegate {
             return true
         } else {
             #if DEBUG
-            print("❌ SSL Pinning failed: Certificate mismatch for host \(host)")
+            print(" SSL Pinning failed: Certificate mismatch for host \(host)")
             serverCertificateData.forEach { data in
                 print("Received Cert: \(data.base64EncodedString())")
             }
@@ -106,13 +106,14 @@ extension APIService: URLSessionDelegate {
 private extension APIService {
 
     static func loadPinnedCertificates() -> [Data] {
-        let certificateNames = ["spaceflightnewsapi.net"]
+//        let certificateNames = ["spaceflightnewsapi.net"]
+        let certificateNames = ["gtsroot4"]
         
         return certificateNames.compactMap { name in
-            guard let certPath = Bundle.main.path(forResource: name, ofType: "cer"),
+            guard let certPath = Bundle.main.path(forResource: name, ofType: "pem"),
                   let certData = try? Data(contentsOf: URL(fileURLWithPath: certPath)) else {
                 #if DEBUG
-                print("⚠️ Certificate not found or invalid for name: \(name)")
+                print("Certificate not found or invalid for name: \(name)")
                 #endif
                 return nil
             }

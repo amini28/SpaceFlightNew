@@ -6,16 +6,23 @@
 //
 import Foundation
 
-struct Report: Codable {
+struct ReportsResponse: Codable {
+    let count: Int?
+    let next: String?
+    let previous: String?
+    let results: [Report]?
+}
+
+struct Report: Codable, Hashable, ThumbData {
     let id: Int
-    let title: String
+    let title: String?
     let authors: [Author]
     let url: String
-    let imageURL: URL
+    let imageURL: URL?
     let newsSite: String
     let summary: String
-    let publishedAt: Date
-    let updatedAt: Date
+    let publishedAt: String?
+    let updatedAt: String?
 
     enum CodingKeys: String, CodingKey {
         case id, title, authors, url
