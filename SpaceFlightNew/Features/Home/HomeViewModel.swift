@@ -11,8 +11,8 @@ import Combine
 class HomeViewModel: ObservableObject {
     
     @Published var articles: [Article] = []
-    @Published var reports: [Report] = []
-    @Published var blogs: [Blog] = []
+    @Published var reports: [Article] = []
+    @Published var blogs: [Article] = []
     
     @Published var errorMessage: String?
 
@@ -32,7 +32,7 @@ class HomeViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
-                    print("Error: \(error)")
+                    print("Error articles: \(error)")
                 }
             }, receiveValue: { [weak self] (articleResponse: ArticleResponse) in
                 self?.articles = articleResponse.results ?? []
@@ -43,9 +43,9 @@ class HomeViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
-                    print("Error: \(error)")
+                    print("Error blogs: \(error)")
                 }
-            }, receiveValue: { [weak self] (blogResponse: BlogResponse) in
+            }, receiveValue: { [weak self] (blogResponse: ArticleResponse) in
                 self?.blogs = blogResponse.results ?? []
             })
             .store(in: &cancellables)
@@ -54,9 +54,9 @@ class HomeViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
-                    print("Error: \(error)")
+                    print("Error reports: \(error)")
                 }
-            }, receiveValue: { [weak self] (reportResponse: ReportsResponse) in
+            }, receiveValue: { [weak self] (reportResponse: ArticleResponse) in
                 self?.reports = reportResponse.results ?? []
             })
             .store(in: &cancellables)

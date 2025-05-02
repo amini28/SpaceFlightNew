@@ -33,9 +33,22 @@
 		84CEB8A82DC023C800D71D3E /* SpaceFlightNewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpaceFlightNewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		84D86E392DC4D1F900064792 /* Exceptions for "SpaceFlightNew" folder in "SpaceFlightNew" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Features/Detail/ArticleDetailView.Swift,
+			);
+			target = 84CEB88D2DC023C600D71D3E /* SpaceFlightNew */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		84CEB8902DC023C600D71D3E /* SpaceFlightNew */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				84D86E392DC4D1F900064792 /* Exceptions for "SpaceFlightNew" folder in "SpaceFlightNew" target */,
+			);
 			path = SpaceFlightNew;
 			sourceTree = "<group>";
 		};

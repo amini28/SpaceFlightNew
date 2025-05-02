@@ -13,7 +13,7 @@ struct ArticleResponse: Codable {
     let results: [Article]?
 }
 
-struct Article: Codable, Hashable, ThumbData {
+struct Article: Codable, Hashable {
     let id: Int?
     let title: String?
     let authors: [Author]?
@@ -24,8 +24,8 @@ struct Article: Codable, Hashable, ThumbData {
     let publishedAt: String?
     let updatedAt: String?
     let featured: Bool?
-    let launches: [String]?
-    let events: [String]?
+    let launches: [Launches]?
+    let events: [Events]?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -43,8 +43,22 @@ struct Article: Codable, Hashable, ThumbData {
     }
 }
 
-protocol ThumbData {
-    var title: String? { get }
-    var imageURL: URL? { get }
-    var publishedAt: String? { get }
+struct Launches: Codable, Hashable {
+    let launchedID: String?
+    let provider: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case launchedID = "launch_id"
+        case provider
+    }
+
+}
+
+struct Events: Codable, Hashable {
+    let eventID: Int?
+    let provider: String?
+    enum CodingKeys: String, CodingKey {
+        case eventID = "event_id"
+        case provider
+    }
 }

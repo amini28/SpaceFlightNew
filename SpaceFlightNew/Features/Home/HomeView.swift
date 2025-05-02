@@ -10,26 +10,47 @@ import SwiftUI
 struct HomeView: View {
     
     @ObservedObject var viewModel: HomeViewModel = HomeViewModel()
+    
+    @State private var path = NavigationPath()
+    @State private var selectedArticle: Article? = nil
+    @State private var showAllArticles = false
 
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
             Group {
                 ScrollView {
-                    VStack(alignment: .center) {
+                    VStack(alignment: .center, spacing: 20) {
                         Text(greetings())
                         
                         Text("Username")
                         
-                        HorizontalThumbnails<Article>(items: viewModel.articles, urlKeyPath: \.imageURL)
-                        HorizontalThumbnails<Report>(items: viewModel.reports, urlKeyPath: \.imageURL)
-                        HorizontalThumbnails<Blog>(items: viewModel.blogs, urlKeyPath: \.imageURL)
+                        ArticlePreviewListView(title: "Articles",
+                                               articles: viewModel.articles,
+                                               onSelectedArticle: { article in path.append(article)},
+                                               onSeeAll: { path.append(viewModel.articles)})
+                        
+                        ArticlePreviewListView(title: "Reports",
+                                               articles: viewModel.reports,
+                                               onSelectedArticle: { article in path.append(article)},
+                                               onSeeAll: { path.append(viewModel.reports)})
+
+                        ArticlePreviewListView(title: "Blogs",
+                                               articles: viewModel.blogs,
+                                               onSelectedArticle: { article in path.append(article)},
+                                               onSeeAll: { path.append(viewModel.blogs)})
+
                     }
                 }
-                .onAppear(perform: {
-                    viewModel.fetchAllData()
-
-                })
             }
+        }
+        .onAppear(perform: {
+            viewModel.fetchAllData()
+        })
+        .navigationDestination(for: Article.self) { article in
+            
+        }
+        .navigationDestination(for: [Article].self) { articles in
+            
         }
     }
     
@@ -44,6 +65,6 @@ struct HomeView: View {
     }
 }
 
-//#Preview {
-//    HomeView()
-//}
+#Preview {
+    HomeView()
+}

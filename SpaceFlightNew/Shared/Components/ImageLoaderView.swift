@@ -1,12 +1,12 @@
 //
-//  ThumbnailView.swift
+//  ImageLoaderView.swift
 //  SpaceFlightNew
 //
 //  Created by Amini on 30/04/25.
 //
 import SwiftUI
 
-struct ThumbnailImage: View {
+struct ImageLoaderView: View {
     let url: URL
     var body: some View {
         AsyncImage(url: url) { phase in
@@ -17,14 +17,12 @@ struct ThumbnailImage: View {
             case .success(let image):
                 image
                     .resizable()
-                    .frame(width: 80, height: 80)
-                    .scaledToFill()
+                    .scaledToFit()
 
             case .failure:
                 Image(systemName: "Auth0")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 80, height: 80)
                     .foregroundColor(.gray)
                 
             @unknown default:
